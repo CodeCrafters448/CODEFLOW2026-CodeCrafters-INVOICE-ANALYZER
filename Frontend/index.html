@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoxen</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="" aria-hidden="true">
+      <span>Invoxen</span>
+    </a>
+
+    <ul>
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="extraction.html">Extraction</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">OCR-powered invoice intelligence</p>
+        <h1>Invoice tracking built for smarter expense management.</h1>
+        <p>
+          Upload invoices, extract text with OCR, categorize expenses, visualize spending patterns, and review financial insights through a modern dashboard.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="upload.html">Upload Invoice</a>
+          <a class="button secondary" href="dashboard.html">View Dashboard</a>
+        </div>
+      </div>
+
+      <div class="hero-panel empty-preview" aria-label="Invoice workspace preview">
+        <div class="workspace-header">
+          <span>Ready to review</span>
+          <strong>No invoice yet</strong>
+        </div>
+        <div class="invoice-preview-card empty-invoice">
+          <div class="empty-document" aria-hidden="true">
+            <span class="empty-doc-line wide"></span>
+            <span class="empty-doc-line"></span>
+            <span class="empty-doc-line short"></span>
+            <span class="empty-doc-row"></span>
+            <span class="empty-doc-row"></span>
+            <span class="empty-doc-total"></span>
+          </div>
+          <span class="scan-line" aria-hidden="true"></span>
+        </div>
+        <div class="review-list">
+          <div>
+            <span>Step 1</span>
+            <strong>Upload invoice</strong>
+          </div>
+          <div>
+            <span>Step 2</span>
+            <strong>Review details</strong>
+          </div>
+          <div>
+            <span>Step 3</span>
+            <strong>Track insights</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="recent-section">
+      <div class="section-heading">
+        <h2>Your Workspace</h2>
+        <a href="upload.html">Upload first invoice</a>
+      </div>
+
+      <div class="recent-grid">
+        <article class="recent-card">
+          <span>Invoices analyzed</span>
+          <strong>0</strong>
+        </article>
+        <article class="recent-card">
+          <span>Pending reviews</span>
+          <strong>0</strong>
+        </article>
+        <article class="recent-card">
+          <span>Next step</span>
+          <strong>Upload invoice</strong>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
