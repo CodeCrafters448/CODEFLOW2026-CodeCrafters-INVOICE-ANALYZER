@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartInvoice AI</title>
+  <title>Invoxen</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <nav class="topbar">
     <a class="brand" href="index.html">
       <img src="assets/logo.png" alt="" aria-hidden="true">
-      <span>SmartInvoice AI</span>
+      <span>Invoxen</span>
     </a>
 
     <ul>
@@ -20,6 +20,7 @@
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="insights.html">Insights</a></li>
       <li><a href="about.html">About</a></li>
+      <li><a href="login.html">Login</a></li>
     </ul>
   </nav>
 
@@ -27,9 +28,9 @@
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">OCR-powered invoice intelligence</p>
-        <h1>AI-powered invoice tracking built for smarter expense management.</h1>
+        <h1>Invoice tracking built for smarter expense management.</h1>
         <p>
-          Upload invoices, extract text with OCR, categorize expenses, visualize spending patterns, and get useful financial insights through a modern dashboard.
+          Upload invoices, extract text with OCR, categorize expenses, visualize spending patterns, and review financial insights through a modern dashboard.
         </p>
         <div class="actions">
           <a class="button primary" href="upload.html">Upload Invoice</a>
@@ -37,26 +38,34 @@
         </div>
       </div>
 
-      <div class="hero-panel" aria-label="Invoice workspace preview">
+      <div class="hero-panel empty-preview" aria-label="Invoice workspace preview">
         <div class="workspace-header">
-          <span>Live Review</span>
-          <strong>May 2026</strong>
+          <span>Ready to review</span>
+          <strong>No invoice yet</strong>
         </div>
-        <div class="invoice-preview-card">
-          <img src="assets/sample-invoice.jpg" alt="Sample invoice">
+        <div class="invoice-preview-card empty-invoice">
+          <div class="empty-document" aria-hidden="true">
+            <span class="empty-doc-line wide"></span>
+            <span class="empty-doc-line"></span>
+            <span class="empty-doc-line short"></span>
+            <span class="empty-doc-row"></span>
+            <span class="empty-doc-row"></span>
+            <span class="empty-doc-total"></span>
+          </div>
+          <span class="scan-line" aria-hidden="true"></span>
         </div>
         <div class="review-list">
           <div>
-            <span>Vendor</span>
-            <strong>Amazon</strong>
+            <span>Step 1</span>
+            <strong>Upload invoice</strong>
           </div>
           <div>
-            <span>Total</span>
-            <strong>Rs. 2,832</strong>
+            <span>Step 2</span>
+            <strong>Review details</strong>
           </div>
           <div>
-            <span>Status</span>
-            <strong>Ready for filing</strong>
+            <span>Step 3</span>
+            <strong>Track insights</strong>
           </div>
         </div>
       </div>
@@ -64,22 +73,22 @@
 
     <section class="recent-section">
       <div class="section-heading">
-        <h2>Recent Analysis</h2>
-        <a href="extraction.html">Open extraction view</a>
+        <h2>Your Workspace</h2>
+        <a href="upload.html">Upload first invoice</a>
       </div>
 
       <div class="recent-grid">
-        <article class="recent-card success">
-          <span>Amazon Invoice</span>
-          <strong>Analyzed</strong>
+        <article class="recent-card">
+          <span>Invoices analyzed</span>
+          <strong>0</strong>
         </article>
-        <article class="recent-card processing">
-          <span>Swiggy Receipt</span>
-          <strong>Processing</strong>
+        <article class="recent-card">
+          <span>Pending reviews</span>
+          <strong>0</strong>
         </article>
-        <article class="recent-card success">
-          <span>Uber Ride Bill</span>
-          <strong>Analyzed</strong>
+        <article class="recent-card">
+          <span>Next step</span>
+          <strong>Upload invoice</strong>
         </article>
       </div>
     </section>

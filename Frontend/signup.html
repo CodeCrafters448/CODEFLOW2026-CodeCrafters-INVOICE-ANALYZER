@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Invoxen</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="" aria-hidden="true">
+      <span>Invoxen</span>
+    </a>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="extraction.html">Extraction</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <p class="eyebrow">Start with Invoxen</p>
+      <h1>Create a workspace for invoice tracking and expense review.</h1>
+      <p>
+        Set up an account to manage uploads, review extracted invoice data, monitor GST, and keep spending insights in one place.
+      </p>
+    </section>
+
+    <section class="card login-card" aria-label="Create account form">
+      <h1>Create account</h1>
+      <p class="signup-link">Already have an account? <a href="login.html">Sign in</a></p>
+
+      <form>
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Create a password" autocomplete="new-password" required>
+
+        <label for="confirmPassword">Confirm password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password" autocomplete="new-password" required>
+
+        <div class="form-row">
+          <label for="terms">
+            <input id="terms" name="terms" type="checkbox" required>
+            I agree to the terms
+          </label>
+        </div>
+
+        <button class="button primary" type="submit">Create account</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
