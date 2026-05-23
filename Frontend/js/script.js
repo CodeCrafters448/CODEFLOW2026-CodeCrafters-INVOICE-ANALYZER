@@ -147,7 +147,12 @@ function renderDashboardCharts() {
   const pie = getElement('pieChart');
   const bar = getElement('barChart');
 
-  if (!pie || !bar || !window.Chart) {
+  if (!pie || !bar) {
+    return;
+  }
+
+  if (!window.Chart) {
+    drawFallbackCharts(pie, bar);
     return;
   }
 
@@ -188,6 +193,64 @@ function renderDashboardCharts() {
         }
       }
     }
+  });
+}
+
+function drawFallbackCharts(pie, bar) {
+  const pieContext = pie.getContext('2d');
+  const barContext = bar.getContext('2d');
+  const segments = [
+    { label: 'Food', value: 45, color: '#2563eb' },
+    { label: 'Shopping', value: 30, color: '#f97316' },
+    { label: 'Travel', value: 15, color: '#0f766e' },
+    { label: 'Utilities', value: 10, color: '#64748b' }
+  ];
+  const bars = [
+    { label: 'Amazon', value: 8000 },
+    { label: 'Swiggy', value: 5000 },
+    { label: 'Uber', value: 3000 },
+    { label: 'Utility', value: 2200 }
+  ];
+  let start = -Math.PI / 2;
+
+  pie.width = pie.clientWidth;
+  pie.height = 320;
+  bar.width = bar.clientWidth;
+  bar.height = 320;
+
+  segments.forEach((segment) => {
+    const slice = (segment.value / 100) * Math.PI * 2;
+    pieContext.beginPath();
+    pieContext.moveTo(pie.width / 2, 150);
+    pieContext.arc(pie.width / 2, 150, 110, start, start + slice);
+    pieContext.closePath();
+    pieContext.fillStyle = segment.color;
+    pieContext.fill();
+    start += slice;
+  });
+
+  pieContext.fillStyle = '#172033';
+  pieContext.font = '14px Arial';
+  segments.forEach((segment, index) => {
+    pieContext.fillText(`${segment.label}: ${segment.value}%`, 20, 280 + index * 18);
+  });
+
+  const max = Math.max(...bars.map((item) => item.value));
+  const gap = 24;
+  const width = (bar.width - gap * (bars.length + 1)) / bars.length;
+
+  barContext.fillStyle = '#172033';
+  barContext.font = '13px Arial';
+
+  bars.forEach((item, index) => {
+    const height = (item.value / max) * 220;
+    const x = gap + index * (width + gap);
+    const y = 250 - height;
+
+    barContext.fillStyle = '#2563eb';
+    barContext.fillRect(x, y, width, height);
+    barContext.fillStyle = '#172033';
+    barContext.fillText(item.label, x, 278);
   });
 }
 
