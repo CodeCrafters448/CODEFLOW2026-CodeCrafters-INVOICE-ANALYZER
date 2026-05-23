@@ -23,3 +23,13 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+
+const invoiceRoutes = require("./routes/invoiceRoutes.js");
+app.use("/api/invoice", invoiceRoutes);
+
+const dashboardRoutes = require("./routes/dashboardRoutes.js");
+app.use("/api/dashboard", dashboardRoutes);
+
+const authRoutes = require("./routes/authRoutes.js");
+app.use("/api/auth", authRoutes);
