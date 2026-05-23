@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Invoice Analyzer</title>
+  <title>SmartInvoice AI</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <nav class="topbar">
     <a class="brand" href="index.html">
       <img src="assets/logo.png" alt="" aria-hidden="true">
-      <span>AI Invoice Analyzer</span>
+      <span>SmartInvoice AI</span>
     </a>
 
     <ul>
@@ -26,40 +26,52 @@
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">OCR powered spend intelligence</p>
-        <h1>Smart AI-Based Invoice Analyzer</h1>
+        <p class="eyebrow">OCR-powered invoice intelligence</p>
+        <h1>AI-powered invoice tracking built for smarter expense management.</h1>
         <p>
-          Upload invoices, extract key fields using OCR, classify expenses, and turn routine receipts into useful financial insights.
+          Upload invoices, extract text with OCR, categorize expenses, visualize spending patterns, and get useful financial insights through a modern dashboard.
         </p>
         <div class="actions">
-          <a class="button primary" href="upload.html">Get Started</a>
+          <a class="button primary" href="upload.html">Upload Invoice</a>
           <a class="button secondary" href="dashboard.html">View Dashboard</a>
         </div>
       </div>
 
-      <div class="hero-panel" aria-label="Invoice analysis preview">
-        <div class="mini-toolbar">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="hero-panel" aria-label="Invoice workspace preview">
+        <div class="workspace-header">
+          <span>Live Review</span>
+          <strong>May 2026</strong>
         </div>
         <div class="invoice-preview-card">
-          <img src="assets/sample-invoice.jpg" alt="Sample invoice preview">
+          <img src="assets/sample-invoice.jpg" alt="Sample invoice">
         </div>
-        <div class="scan-line"></div>
+        <div class="review-list">
+          <div>
+            <span>Vendor</span>
+            <strong>Amazon</strong>
+          </div>
+          <div>
+            <span>Total</span>
+            <strong>Rs. 2,832</strong>
+          </div>
+          <div>
+            <span>Status</span>
+            <strong>Ready for filing</strong>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="recent-section">
       <div class="section-heading">
-        <h2>Recently Analyzed</h2>
+        <h2>Recent Analysis</h2>
         <a href="extraction.html">Open extraction view</a>
       </div>
 
       <div class="recent-grid">
         <article class="recent-card success">
           <span>Amazon Invoice</span>
-          <strong>Success</strong>
+          <strong>Analyzed</strong>
         </article>
         <article class="recent-card processing">
           <span>Swiggy Receipt</span>
@@ -67,7 +79,7 @@
         </article>
         <article class="recent-card success">
           <span>Uber Ride Bill</span>
-          <strong>Success</strong>
+          <strong>Analyzed</strong>
         </article>
       </div>
     </section>

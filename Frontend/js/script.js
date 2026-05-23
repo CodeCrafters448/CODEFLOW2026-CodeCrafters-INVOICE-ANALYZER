@@ -146,6 +146,8 @@ async function analyzeInvoice() {
 function renderDashboardCharts() {
   const pie = getElement('pieChart');
   const bar = getElement('barChart');
+  const chartText = '#dbeafe';
+  const chartGrid = 'rgba(148, 163, 184, 0.18)';
 
   if (!pie || !bar) {
     return;
@@ -162,14 +164,17 @@ function renderDashboardCharts() {
       labels: ['Food', 'Shopping', 'Travel', 'Utilities'],
       datasets: [{
         data: [45, 30, 15, 10],
-        backgroundColor: ['#2563eb', '#f97316', '#0f766e', '#64748b']
+        backgroundColor: ['#3b82f6', '#60a5fa', '#22c55e', '#f59e0b']
       }]
     },
     options: {
       responsive: true,
       plugins: {
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            color: chartText
+          }
         }
       }
     }
@@ -182,14 +187,35 @@ function renderDashboardCharts() {
       datasets: [{
         label: 'Expenses',
         data: [8000, 5000, 3000, 2200],
-        backgroundColor: '#2563eb'
+        backgroundColor: '#3b82f6'
       }]
     },
     options: {
       responsive: true,
+      plugins: {
+        legend: {
+          labels: {
+            color: chartText
+          }
+        }
+      },
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: true,
+          grid: {
+            color: chartGrid
+          },
+          ticks: {
+            color: chartText
+          }
+        },
+        x: {
+          grid: {
+            color: chartGrid
+          },
+          ticks: {
+            color: chartText
+          }
         }
       }
     }
@@ -200,10 +226,10 @@ function drawFallbackCharts(pie, bar) {
   const pieContext = pie.getContext('2d');
   const barContext = bar.getContext('2d');
   const segments = [
-    { label: 'Food', value: 45, color: '#2563eb' },
-    { label: 'Shopping', value: 30, color: '#f97316' },
-    { label: 'Travel', value: 15, color: '#0f766e' },
-    { label: 'Utilities', value: 10, color: '#64748b' }
+    { label: 'Food', value: 45, color: '#3b82f6' },
+    { label: 'Shopping', value: 30, color: '#60a5fa' },
+    { label: 'Travel', value: 15, color: '#22c55e' },
+    { label: 'Utilities', value: 10, color: '#f59e0b' }
   ];
   const bars = [
     { label: 'Amazon', value: 8000 },
@@ -229,7 +255,7 @@ function drawFallbackCharts(pie, bar) {
     start += slice;
   });
 
-  pieContext.fillStyle = '#172033';
+  pieContext.fillStyle = '#dbeafe';
   pieContext.font = '14px Arial';
   segments.forEach((segment, index) => {
     pieContext.fillText(`${segment.label}: ${segment.value}%`, 20, 280 + index * 18);
@@ -239,7 +265,7 @@ function drawFallbackCharts(pie, bar) {
   const gap = 24;
   const width = (bar.width - gap * (bars.length + 1)) / bars.length;
 
-  barContext.fillStyle = '#172033';
+  barContext.fillStyle = '#dbeafe';
   barContext.font = '13px Arial';
 
   bars.forEach((item, index) => {
@@ -247,9 +273,9 @@ function drawFallbackCharts(pie, bar) {
     const x = gap + index * (width + gap);
     const y = 250 - height;
 
-    barContext.fillStyle = '#2563eb';
+    barContext.fillStyle = '#3b82f6';
     barContext.fillRect(x, y, width, height);
-    barContext.fillStyle = '#172033';
+    barContext.fillStyle = '#dbeafe';
     barContext.fillText(item.label, x, 278);
   });
 }
