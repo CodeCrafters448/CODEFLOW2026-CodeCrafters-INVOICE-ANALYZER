@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Invoice Analyzer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="" aria-hidden="true">
+      <span>AI Invoice Analyzer</span>
+    </a>
+
+    <ul>
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="extraction.html">Extraction</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">OCR powered spend intelligence</p>
+        <h1>Smart AI-Based Invoice Analyzer</h1>
+        <p>
+          Upload invoices, extract key fields using OCR, classify expenses, and turn routine receipts into useful financial insights.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="upload.html">Get Started</a>
+          <a class="button secondary" href="dashboard.html">View Dashboard</a>
+        </div>
+      </div>
+
+      <div class="hero-panel" aria-label="Invoice analysis preview">
+        <div class="mini-toolbar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="invoice-preview-card">
+          <img src="assets/sample-invoice.svg" alt="Sample invoice preview">
+        </div>
+        <div class="scan-line"></div>
+      </div>
+    </section>
+
+    <section class="recent-section">
+      <div class="section-heading">
+        <h2>Recently Analyzed</h2>
+        <a href="extraction.html">Open extraction view</a>
+      </div>
+
+      <div class="recent-grid">
+        <article class="recent-card success">
+          <span>Amazon Invoice</span>
+          <strong>Success</strong>
+        </article>
+        <article class="recent-card processing">
+          <span>Swiggy Receipt</span>
+          <strong>Processing</strong>
+        </article>
+        <article class="recent-card success">
+          <span>Uber Ride Bill</span>
+          <strong>Success</strong>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

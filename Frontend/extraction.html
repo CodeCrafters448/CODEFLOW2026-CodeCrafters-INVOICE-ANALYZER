@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice Extraction</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="" aria-hidden="true">
+      <span>AI Invoice Analyzer</span>
+    </a>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a class="active" href="extraction.html">Extraction</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="split-screen">
+    <section class="document-view card">
+      <div class="section-heading">
+        <h1>Uploaded Invoice</h1>
+        <span class="status-pill success">Verified</span>
+      </div>
+      <img src="assets/sample-invoice.svg" alt="Sample invoice">
+    </section>
+
+    <section class="extraction-panel card">
+      <h1>AI Extraction Panel</h1>
+
+      <div class="metadata-block info-block">
+        <h2>Metadata</h2>
+        <p><strong>Merchant:</strong> Amazon</p>
+        <p><strong>Date:</strong> 22/05/2026</p>
+        <p><strong>Invoice ID:</strong> INV1023</p>
+        <p><strong>Currency:</strong> INR</p>
+      </div>
+
+      <div class="tax-block info-block">
+        <h2>Tax Breakdown</h2>
+        <p>Subtotal: Rs. 2400</p>
+        <p>GST: Rs. 432</p>
+        <strong>Total: Rs. 2832</strong>
+      </div>
+
+      <div class="items-table">
+        <h2>Purchased Items</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Headphones</td>
+              <td>1</td>
+              <td>Rs. 2000</td>
+            </tr>
+            <tr>
+              <td>USB Cable</td>
+              <td>2</td>
+              <td>Rs. 400</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <span class="category-badge shopping">Shopping</span>
+    </section>
+  </main>
+</body>
+</html>

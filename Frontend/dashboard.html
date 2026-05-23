@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="" aria-hidden="true">
+      <span>AI Invoice Analyzer</span>
+    </a>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="extraction.html">Extraction</a></li>
+      <li><a class="active" href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-shell">
+    <section class="kpi-section">
+      <article class="kpi-card">
+        <span>Total Spent</span>
+        <strong>Rs. 24,500</strong>
+      </article>
+      <article class="kpi-card">
+        <span>Total GST Paid</span>
+        <strong>Rs. 1,420</strong>
+      </article>
+      <article class="kpi-card">
+        <span>Top Category</span>
+        <strong>Food</strong>
+      </article>
+    </section>
+
+    <section class="charts-section">
+      <div class="chart-card card">
+        <h1>Category-wise Expenses</h1>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-card card">
+        <h1>Merchant-wise Analysis</h1>
+        <canvas id="barChart"></canvas>
+      </div>
+    </section>
+
+    <section class="insights-section card">
+      <h1>AI Insights</h1>
+      <div class="insight-card">Utilities spending increased by 14% this week.</div>
+      <div class="insight-card">You have accumulated Rs. 1,420 in claimable GST invoices this month.</div>
+      <div class="insight-card">Food delivery is your most frequent category this month.</div>
+    </section>
+  </main>
+</body>
+</html>

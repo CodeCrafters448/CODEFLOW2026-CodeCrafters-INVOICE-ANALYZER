@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Invoice</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.svg" alt="" aria-hidden="true">
+      <span>AI Invoice Analyzer</span>
+    </a>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a class="active" href="upload.html">Upload</a></li>
+      <li><a href="extraction.html">Extraction</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-shell">
+    <section class="upload-grid">
+      <div class="card upload-card">
+        <h1>Upload Invoice</h1>
+        <p>Drop an invoice image or choose one from your device. PNG and JPG files work best for OCR.</p>
+
+        <label class="drop-zone" id="dropZone" for="invoiceFile">
+          <span class="scan-animation"></span>
+          <strong>Drag & drop invoice here</strong>
+          <small>or click to browse</small>
+          <input type="file" id="invoiceFile" accept="image/*">
+        </label>
+
+        <button class="button primary" type="button" onclick="analyzeInvoice()">Analyze Invoice</button>
+        <div id="loader" class="loader" aria-live="polite">Ready to analyze</div>
+        <img id="preview" class="preview-image" alt="Uploaded invoice preview">
+      </div>
+
+      <div class="card extraction-summary">
+        <h2>Extracted Invoice Details</h2>
+        <div id="invoiceDetails" class="details-list">
+          <p><strong>Merchant:</strong> -</p>
+          <p><strong>Date:</strong> -</p>
+          <p><strong>Total Amount:</strong> -</p>
+          <p><strong>GST:</strong> -</p>
+          <p><strong>Category:</strong> -</p>
+        </div>
+        <h3>Extracted Raw Text</h3>
+        <pre id="rawText" class="raw-text">OCR text will appear here.</pre>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
