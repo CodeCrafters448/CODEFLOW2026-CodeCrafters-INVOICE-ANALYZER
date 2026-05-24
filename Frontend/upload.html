@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Upload Invoice</title>
+
   <link rel="stylesheet" href="css/style.css">
+
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
   <script src="js/script.js" defer></script>
 </head>
+
 <body>
+
   <nav class="topbar">
+
     <a class="brand" href="index.html">
       <img src="assets/logo.png" alt="" aria-hidden="true">
       <span>Invoxen</span>
@@ -24,39 +29,121 @@
       <li><a href="about.html">About</a></li>
       <li><a href="login.html">Login</a></li>
     </ul>
+
   </nav>
 
+
   <main class="page-shell">
+
     <section class="upload-grid">
+
       <div class="card upload-card">
+
         <h1>Upload Invoice</h1>
-        <p>Add a clear invoice image and let OCR capture the important details for review.</p>
 
-        <label class="drop-zone" id="dropZone" for="invoiceFile">
-          <span class="scan-animation" aria-hidden="true"></span>
-          <strong>Drag & drop invoice here</strong>
-          <small>PNG or JPG, up to your browser limit</small>
-          <input type="file" id="invoiceFile" accept="image/*">
-        </label>
+        <p>
+          Add a clear invoice image and let OCR capture
+          the important details for review.
+        </p>
 
-        <button class="button primary" type="button" onclick="analyzeInvoice()">Analyze Invoice</button>
-        <div id="loader" class="loader" aria-live="polite">Ready to analyze</div>
-        <img id="preview" class="preview-image" alt="Uploaded invoice preview">
+
+        <form id="uploadForm">
+
+          <label
+            class="drop-zone"
+            id="dropZone"
+            for="invoiceFile"
+          >
+
+            <span
+              class="scan-animation"
+              aria-hidden="true"
+            ></span>
+
+            <strong>
+              Drag & drop invoice here
+            </strong>
+
+            <small>
+              PNG or JPG, up to your browser limit
+            </small>
+
+            <input
+              type="file"
+              id="invoiceFile"
+              accept="image/*"
+              required
+            >
+
+          </label>
+
+
+          <button
+            class="button primary"
+            type="submit"
+          >
+            Analyze Invoice
+          </button>
+
+        </form>
+
+
+        <div
+          id="loader"
+          class="loader"
+          aria-live="polite"
+        >
+          Ready to analyze
+        </div>
+
+        <img
+          id="preview"
+          class="preview-image"
+          alt="Uploaded invoice preview"
+          hidden
+        >
+
       </div>
+
+
 
       <div class="card extraction-summary">
+
         <h2>Extracted Invoice Details</h2>
-        <div id="invoiceDetails" class="details-list">
+
+        <div
+          id="invoiceDetails"
+          class="details-list"
+        >
+
           <p><strong>Merchant:</strong> -</p>
+
           <p><strong>Date:</strong> -</p>
+
           <p><strong>Total Amount:</strong> -</p>
+
           <p><strong>GST:</strong> -</p>
+
           <p><strong>Category:</strong> -</p>
+
         </div>
+
+
         <h3>Extracted Raw Text</h3>
-        <pre id="rawText" class="raw-text">OCR text will appear here.</pre>
+
+        <pre
+          id="rawText"
+          class="raw-text"
+        >
+OCR text will appear here.
+        </pre>
+
       </div>
+
     </section>
+
   </main>
+
+
 </body>
 </html>

@@ -553,8 +553,14 @@ button.primary:hover {
 }
 
 .preview-image {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: none;
   margin-top: 18px;
   max-height: 430px;
+  object-fit: contain;
+  padding: 12px;
   width: 100%;
 }
 
