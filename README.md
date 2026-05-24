@@ -198,6 +198,3 @@ Built for innovation, automation, and smarter financial management.
 
 ---
 
-<p align="center">
-  ⭐ If you like this project, consider giving it a star on GitHub!
-</p>
