@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="css/style.css">
 
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script src="js/script.js" defer></script>
 </head>
 
@@ -65,13 +66,13 @@
             </strong>
 
             <small>
-              PNG or JPG, up to your browser limit
+              PNG, JPG, or PDF, up to your browser limit
             </small>
 
             <input
               type="file"
               id="invoiceFile"
-              accept="image/*"
+              accept="image/*,application/pdf,.pdf"
               required
             >
 
@@ -102,6 +103,15 @@
           alt="Uploaded invoice preview"
           hidden
         >
+
+        <div
+          id="pdfPreview"
+          class="pdf-preview"
+          hidden
+        >
+          <strong>PDF invoice selected</strong>
+          <span id="pdfPreviewName"></span>
+        </div>
 
       </div>
 

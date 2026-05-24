@@ -184,10 +184,7 @@
 
             saveUserSession(
               data.token,
-              data.user || {
-                name: data.name,
-                email
-              }
+              data.user || data
             );
 
             alert("Login Successful");

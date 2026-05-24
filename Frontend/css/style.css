@@ -572,6 +572,41 @@ button.primary:hover {
   border-color: rgba(147, 197, 253, 0.7);
 }
 
+.upload-card.is-collapsed {
+  align-self: start;
+  padding: 24px;
+}
+
+.upload-card.is-collapsed h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.upload-card.is-collapsed > p {
+  display: none;
+}
+
+.upload-card.is-collapsed .drop-zone {
+  margin: 14px 0;
+  min-height: 76px;
+  padding: 18px;
+}
+
+.upload-card.is-collapsed .drop-zone small,
+.upload-card.is-collapsed .scan-animation,
+.upload-card.is-collapsed .preview-image,
+.upload-card.is-collapsed .pdf-preview {
+  display: none;
+}
+
+.upload-card.is-collapsed .loader {
+  background: rgba(15, 23, 42, 0.52);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--text);
+  padding: 12px 14px;
+}
+
 .drop-zone input {
   height: 1px;
   opacity: 0;
@@ -619,6 +654,36 @@ button.primary:hover {
   width: 100%;
 }
 
+.pdf-preview {
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  color: var(--text);
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+  padding: 22px;
+}
+
+.pdf-preview[hidden] {
+  display: none;
+}
+
+.pdf-preview span {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.document-pdf-preview {
+  min-height: 260px;
+  place-content: center;
+  text-align: center;
+}
+
+.extraction-empty-document {
+  margin-top: 18px;
+}
+
 .details-list p,
 .info-block p {
   margin: 8px 0;
@@ -638,6 +703,103 @@ button.primary:hover {
   overflow: auto;
   padding: 16px;
   white-space: pre-wrap;
+}
+
+.profile-shell {
+  max-width: 920px;
+}
+
+.profile-card {
+  padding: 44px;
+  overflow-x: auto;
+}
+
+.profile-avatar {
+  align-items: center;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #60a5fa, #22c55e);
+  border: 6px solid rgba(191, 219, 254, 0.22);
+  border-radius: 50%;
+  box-shadow: 0 24px 60px rgba(37, 99, 235, 0.28);
+  color: #ffffff;
+  display: flex;
+  font-size: 58px;
+  font-weight: 900;
+  justify-content: center;
+  margin: 0 auto 22px;
+  width: min(170px, 42vw);
+}
+
+.profile-heading {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.profile-heading h1 {
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
+.profile-heading p,
+.profile-message {
+  color: var(--muted);
+}
+
+.profile-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.profile-table th,
+.profile-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  text-align: left;
+}
+
+.profile-table th {
+  color: #bfdbfe;
+  font-weight: 800;
+  width: 34%;
+}
+
+.profile-table td {
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.profile-forms {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 32px;
+}
+
+.profile-form {
+  background: rgba(15, 23, 42, 0.42);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+}
+
+.profile-form h2 {
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+
+.profile-message {
+  font-weight: 800;
+  margin-top: 20px;
+  min-height: 24px;
+  text-align: center;
 }
 
 .document-view img {
@@ -690,8 +852,31 @@ th {
   background: rgba(59, 130, 246, 0.9);
 }
 
+.category-badge.electronics {
+  background: rgba(14, 165, 233, 0.9);
+}
+
+.category-badge.food {
+  background: rgba(34, 197, 94, 0.9);
+}
+
+.category-badge.travel {
+  background: rgba(245, 158, 11, 0.9);
+}
+
+.category-badge.office,
+.category-badge.utilities,
+.category-badge.general {
+  background: rgba(100, 116, 139, 0.9);
+}
+
 .status-pill.success {
   background: rgba(34, 197, 94, 0.85);
+  margin-top: 0;
+}
+
+.status-pill.waiting {
+  background: rgba(100, 116, 139, 0.85);
   margin-top: 0;
 }
 
@@ -910,6 +1095,7 @@ th {
   .charts-section,
   .kpi-section,
   .recent-grid,
+  .profile-forms,
   .auth-shell,
   .login-shell {
     grid-template-columns: 1fr;
@@ -968,5 +1154,28 @@ th {
   .recent-card,
   .insight-card {
     padding: 22px;
+  }
+
+  .profile-card {
+    padding: 28px 20px;
+  }
+
+  .profile-heading h1 {
+    font-size: 32px;
+  }
+
+  .profile-table th,
+  .profile-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .profile-table th {
+    border-bottom: 0;
+    padding-bottom: 4px;
+  }
+
+  .profile-table td {
+    padding-top: 0;
   }
 }

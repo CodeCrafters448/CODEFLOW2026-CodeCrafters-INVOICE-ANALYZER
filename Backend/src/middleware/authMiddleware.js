@@ -29,6 +29,12 @@ const protect = async (req, res, next) => {
                 decoded.id
             ).select("-password");
 
+            if (!req.user) {
+                return res.status(401).json({
+                    message: "User session is no longer valid"
+                });
+            }
+
             next();
 
         } catch (error) {

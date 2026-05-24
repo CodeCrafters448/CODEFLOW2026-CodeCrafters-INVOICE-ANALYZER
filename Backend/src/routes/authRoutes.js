@@ -2,8 +2,14 @@ const express = require("express");
 
 const {
     registerUser,
-    loginUser
+    loginUser,
+    updateProfile,
+    changePassword
 } = require("../controllers/authController");
+
+const {
+    protect
+} = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -19,6 +25,18 @@ router.post(
 router.post(
     "/login",
     loginUser
+);
+
+router.put(
+    "/profile",
+    protect,
+    updateProfile
+);
+
+router.put(
+    "/password",
+    protect,
+    changePassword
 );
 
 

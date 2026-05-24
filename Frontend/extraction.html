@@ -29,9 +29,30 @@
     <section class="document-view card">
       <div class="section-heading">
         <h1>Uploaded Invoice</h1>
-        <span class="status-pill success">Verified</span>
+        <span id="extractionStatus" class="status-pill">Waiting</span>
       </div>
-      <img src="assets/invoice.jpg" alt="Sample invoice">
+      <img
+        id="extractionImage"
+        src=""
+        alt="Uploaded invoice"
+        hidden
+      >
+      <div id="extractionEmptyDocument" class="empty-document extraction-empty-document">
+        <span class="empty-doc-line wide"></span>
+        <span class="empty-doc-line"></span>
+        <span class="empty-doc-line short"></span>
+        <span class="empty-doc-row"></span>
+        <span class="empty-doc-row"></span>
+        <span class="empty-doc-total"></span>
+      </div>
+      <div
+        id="extractionPdf"
+        class="pdf-preview document-pdf-preview"
+        hidden
+      >
+        <strong>PDF invoice uploaded</strong>
+        <span id="extractionPdfName"></span>
+      </div>
     </section>
 
     <section class="extraction-panel card">
@@ -39,17 +60,17 @@
 
       <div class="metadata-block info-block">
         <h2>Metadata</h2>
-        <p><strong>Merchant:</strong> Amazon</p>
-        <p><strong>Date:</strong> 22/05/2026</p>
-        <p><strong>Invoice ID:</strong> INV1023</p>
-        <p><strong>Currency:</strong> INR</p>
+        <p><strong>Merchant:</strong> <span id="extractionMerchant">-</span></p>
+        <p><strong>Date:</strong> <span id="extractionDate">-</span></p>
+        <p><strong>Invoice ID:</strong> <span id="extractionInvoiceId">-</span></p>
+        <p><strong>Currency:</strong> <span id="extractionCurrency">-</span></p>
       </div>
 
       <div class="tax-block info-block">
         <h2>Tax Breakdown</h2>
-        <p>Subtotal: Rs. 2400</p>
-        <p>GST: Rs. 432</p>
-        <strong>Total: Rs. 2832</strong>
+        <p>Subtotal: Rs. <span id="extractionSubtotal">-</span></p>
+        <p>GST: Rs. <span id="extractionGst">-</span></p>
+        <strong>Total: Rs. <span id="extractionTotal">-</span></strong>
       </div>
 
       <div class="items-table">
@@ -62,22 +83,11 @@
               <th>Price</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Headphones</td>
-              <td>1</td>
-              <td>Rs. 2000</td>
-            </tr>
-            <tr>
-              <td>USB Cable</td>
-              <td>2</td>
-              <td>Rs. 400</td>
-            </tr>
-          </tbody>
+          <tbody id="extractionItems"></tbody>
         </table>
       </div>
 
-      <span class="category-badge shopping">Shopping</span>
+      <span id="extractionCategory" class="category-badge general">-</span>
     </section>
   </main>
 </body>

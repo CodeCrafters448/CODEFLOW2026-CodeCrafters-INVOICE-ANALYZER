@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | Invoxen</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+
+<body>
+
+  <nav class="topbar">
+
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="" aria-hidden="true">
+      <span>Invoxen</span>
+    </a>
+
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="upload.html">Upload</a></li>
+      <li><a href="extraction.html">Extraction</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="insights.html">Insights</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a class="active" href="profile.html">Profile</a></li>
+    </ul>
+
+  </nav>
+
+
+  <main class="page-shell profile-shell">
+
+    <section class="card profile-card">
+
+      <div class="profile-avatar" id="profileAvatar" aria-hidden="true">
+        U
+      </div>
+
+      <div class="profile-heading">
+        <h1 id="profileName">Profile</h1>
+        <p id="profileEmail">Your account details for this browser session.</p>
+      </div>
+
+      <table class="profile-table">
+        <tbody id="profileDetails">
+          <tr>
+            <th>Name</th>
+            <td>-</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>-</td>
+          </tr>
+          <tr>
+            <th>Joining date</th>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="profile-actions">
+        <button class="button primary" type="button" id="logoutButton">
+          Logout
+        </button>
+      </div>
+
+      <div class="profile-forms">
+
+        <form id="nameChangeForm" class="profile-form">
+          <h2>Change name</h2>
+          <label for="newName">New name</label>
+          <input
+            id="newName"
+            type="text"
+            autocomplete="name"
+            required
+          >
+          <button class="button primary" type="submit">
+            Update name
+          </button>
+        </form>
+
+        <form id="passwordChangeForm" class="profile-form">
+          <h2>Change password</h2>
+          <label for="currentPassword">Current password</label>
+          <input
+            id="currentPassword"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+          <label for="newPassword">New password</label>
+          <input
+            id="newPassword"
+            type="password"
+            autocomplete="new-password"
+            required
+          >
+          <button class="button primary" type="submit">
+            Update password
+          </button>
+        </form>
+
+      </div>
+
+      <p id="profileMessage" class="profile-message" aria-live="polite"></p>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

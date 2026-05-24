@@ -269,10 +269,7 @@
 
             saveUserSession(
               data.token,
-              data.user || {
-                name,
-                email
-              }
+              data.user || data
             );
 
             alert("Account Created Successfully");

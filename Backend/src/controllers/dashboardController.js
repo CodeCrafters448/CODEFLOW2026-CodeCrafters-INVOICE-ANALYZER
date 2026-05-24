@@ -6,6 +6,8 @@ const getDashboardData = async (req, res) => {
 
         const invoices = await Invoice.find({
             user: req.user._id
+        }).sort({
+            createdAt: -1
         });
 
         let totalExpense = 0;
@@ -16,17 +18,29 @@ const getDashboardData = async (req, res) => {
 
         invoices.forEach(invoice => {
 
-            totalExpense += invoice.amount;
+            const amount =
+                Number(invoice.amount) || 0;
 
-            totalTax += invoice.tax;
+            const tax =
+                Number(invoice.tax) || 0;
 
-            categoryMap[invoice.category] =
-                (categoryMap[invoice.category] || 0)
-                + invoice.amount;
+            const category =
+                invoice.category || "Uncategorized";
 
-            merchantMap[invoice.merchantName] =
-                (merchantMap[invoice.merchantName] || 0)
-                + invoice.amount;
+            const merchant =
+                invoice.merchantName || "Unknown Merchant";
+
+            totalExpense += amount;
+
+            totalTax += tax;
+
+            categoryMap[category] =
+                (categoryMap[category] || 0)
+                + amount;
+
+            merchantMap[merchant] =
+                (merchantMap[merchant] || 0)
+                + amount;
         });
 
         res.json({
@@ -39,7 +53,26 @@ const getDashboardData = async (req, res) => {
 
             merchantBreakdown: merchantMap,
 
-            totalInvoices: invoices.length
+            totalInvoices: invoices.length,
+
+            invoices:
+                invoices.map((invoice) => ({
+                    id: invoice._id,
+                    merchantName: invoice.merchantName,
+                    amount: invoice.amount,
+                    tax: invoice.tax,
+                    subtotal: invoice.subtotal,
+                    date: invoice.date,
+                    invoiceId: invoice.invoiceId,
+                    currency: invoice.currency,
+                    category: invoice.category,
+                    items: invoice.items,
+                    rawText: invoice.rawText,
+                    fileName: invoice.fileName,
+                    fileType: invoice.fileType,
+                    fileUrl: invoice.fileUrl,
+                    createdAt: invoice.createdAt
+                }))
         });
 
     } catch (error) {

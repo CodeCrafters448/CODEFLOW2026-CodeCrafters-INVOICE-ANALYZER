@@ -13,6 +13,10 @@ const categorizeExpense = (merchantName = "", items = []) => {
         return "Office";
     }
 
+    if (/(electronics|reliance|smartphone|phone|power bank|screen guard)/.test(text)) {
+        return "Electronics";
+    }
+
     return "General";
 };
 

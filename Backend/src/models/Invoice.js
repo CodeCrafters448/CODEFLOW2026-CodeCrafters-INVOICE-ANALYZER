@@ -19,19 +19,45 @@ const invoiceSchema = new mongoose.Schema({
         type: Number
     },
 
+    subtotal: {
+        type: Number
+    },
+
     date: {
         type: String
+    },
+
+    invoiceId: {
+        type: String
+    },
+
+    currency: {
+        type: String,
+        default: "INR"
     },
 
     category: {
         type: String
     },
 
-    items: [
-        String
-    ],
+    items: {
+        type: [mongoose.Schema.Types.Mixed],
+        default: []
+    },
 
     rawText: {
+        type: String
+    },
+
+    fileName: {
+        type: String
+    },
+
+    fileType: {
+        type: String
+    },
+
+    fileUrl: {
         type: String
     },
 
