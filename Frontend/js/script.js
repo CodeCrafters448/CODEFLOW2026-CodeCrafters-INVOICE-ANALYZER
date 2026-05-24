@@ -409,7 +409,7 @@ function setupProfileActions() {
 
           const response =
             await fetch(
-              "http://localhost:5000/api/auth/profile",
+              "https://invoxen-backend.onrender.com/api/auth/profile",
               {
                 method: "PUT",
                 headers: {
@@ -462,7 +462,7 @@ function setupProfileActions() {
 
           const response =
             await fetch(
-              "http://localhost:5000/api/auth/password",
+              "https://invoxen-backend.onrender.com/api/auth/password",
               {
                 method: "PUT",
                 headers: {
@@ -632,7 +632,7 @@ function renderStoredUploadPreview(data = {}) {
     preview.src =
       data.fileUrl.startsWith("http")
         ? data.fileUrl
-        : `http://localhost:5000${data.fileUrl}`;
+        : `https://invoxen-backend.onrender.com${data.fileUrl}`;
 
     preview.hidden = false;
     preview.style.display = "block";
@@ -1146,7 +1146,7 @@ function normalizeLatestInvoiceData(data = {}, file = null, rawText = "") {
       data.fileUrl
         ? data.fileUrl.startsWith("http")
           ? data.fileUrl
-          : `http://localhost:5000${data.fileUrl}`
+          : `https://invoxen-backend.onrender.com${data.fileUrl}`
         : "",
     previewDataUrl:
       currentUploadPreviewDataUrl || data.previewDataUrl || ""
@@ -1212,7 +1212,7 @@ function normalizeLatestInvoiceData(
         ? (
             data.fileUrl.startsWith("http")
               ? data.fileUrl
-              : `http://localhost:5000${data.fileUrl}`
+              : `https://invoxen-backend.onrender.com${data.fileUrl}`
           )
         : "",
 
@@ -1376,8 +1376,8 @@ async function fetchLatestInvoiceForExtraction() {
 
     const endpoint =
       latestInvoiceId
-        ? `http://localhost:5000/api/invoice/${latestInvoiceId}`
-        : "http://localhost:5000/api/invoice/latest";
+        ? `https://invoxen-backend.onrender.com/api/invoice/${latestInvoiceId}`
+        : "https://invoxen-backend.onrender.com/api/invoice/latest";
 
     const response =
       await fetch(
@@ -1439,8 +1439,8 @@ async function fetchLatestInvoiceForUpload() {
 
     const endpoint =
       latestInvoiceId
-        ? `http://localhost:5000/api/invoice/${latestInvoiceId}`
-        : "http://localhost:5000/api/invoice/latest";
+        ? `https://invoxen-backend.onrender.com/api/invoice/${latestInvoiceId}`
+        : "https://invoxen-backend.onrender.com/api/invoice/latest";
 
     const response =
       await fetch(
@@ -1851,7 +1851,7 @@ async function uploadInvoice() {
   try {
 
     const response = await fetch(
-      "http://localhost:5000/api/invoice/upload",
+      "https://invoxen-backend.onrender.com/api/invoice/upload",
       {
 
         method: "POST",
@@ -1957,7 +1957,7 @@ async function fetchDashboardData() {
 
     const response =
       await fetch(
-        "http://localhost:5000/api/dashboard",
+        "https://invoxen-backend.onrender.com/api/dashboard",
         {
 
           method: "GET",
@@ -2054,7 +2054,7 @@ async function fetchInsightsData() {
 
     const response =
       await fetch(
-        "http://localhost:5000/api/dashboard",
+        "https://invoxen-backend.onrender.com/api/dashboard",
         {
           headers: {
             Authorization:
