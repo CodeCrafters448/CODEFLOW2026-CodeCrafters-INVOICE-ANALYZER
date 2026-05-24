@@ -574,6 +574,12 @@ document.addEventListener(
 
     setupUploadForm();
 
-    fetchDashboardData();
+    if (
+      getElement("totalSpent") &&
+      getElement("totalGST") &&
+      getElement("topCategory")
+    ) {
+      fetchDashboardData();
+    }
   }
 );
