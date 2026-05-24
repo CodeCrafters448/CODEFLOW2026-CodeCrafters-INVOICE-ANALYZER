@@ -14,6 +14,9 @@ const AUTH_USER_KEY =
 const LATEST_INVOICE_KEY =
   "latestInvoiceExtractionV2";
 
+const LATEST_INVOICE_ID_KEY =
+  "latestInvoiceId";
+
 function getElement(id) {
   return document.getElementById(id);
 }
@@ -236,6 +239,31 @@ function updateAuthNavigation() {
       "login.html"
     )
   );
+}
+
+function requireAuthForProtectedPage() {
+
+  const protectedPages = [
+    "upload.html",
+    "extraction.html",
+    "dashboard.html",
+    "insights.html",
+    "profile.html"
+  ];
+
+  const currentPage =
+    window.location.pathname.split("/").pop();
+
+  if (
+    protectedPages.includes(currentPage) &&
+    !getAuthToken()
+  ) {
+    window.location.href =
+      "login.html";
+    return false;
+  }
+
+  return true;
 }
 
 function renderProfilePage() {
@@ -564,6 +592,55 @@ function renderFilePreview(file) {
   }
 
   return true;
+}
+
+function renderStoredUploadPreview(data = {}) {
+
+  const preview =
+    getElement("preview");
+
+  const pdfPreview =
+    getElement("pdfPreview");
+
+  const pdfPreviewName =
+    getElement("pdfPreviewName");
+
+  if (!preview) {
+    return;
+  }
+
+  if (data.fileType === "application/pdf") {
+
+    preview.removeAttribute("src");
+    preview.hidden = true;
+    preview.style.display = "none";
+
+    if (pdfPreview) {
+      pdfPreview.hidden = false;
+    }
+
+    if (pdfPreviewName) {
+      pdfPreviewName.textContent =
+        data.fileName || "Invoice PDF";
+    }
+
+    return;
+  }
+
+  if (data.fileUrl) {
+
+    preview.src =
+      data.fileUrl.startsWith("http")
+        ? data.fileUrl
+        : `http://localhost:5000${data.fileUrl}`;
+
+    preview.hidden = false;
+    preview.style.display = "block";
+
+    if (pdfPreview) {
+      pdfPreview.hidden = true;
+    }
+  }
 }
 
 function setUploadCardCollapsed(isCollapsed) {
@@ -980,6 +1057,13 @@ function saveLatestInvoiceExtraction(data) {
 
   try {
 
+    if (data && (data.id || data._id)) {
+      localStorage.setItem(
+        LATEST_INVOICE_ID_KEY,
+        data.id || data._id
+      );
+    }
+
     sessionStorage.setItem(
       LATEST_INVOICE_KEY,
       JSON.stringify(data || {})
@@ -993,6 +1077,13 @@ function saveLatestInvoiceExtraction(data) {
         ...data,
         previewDataUrl: ""
       };
+
+      if (lightweightData && (lightweightData.id || lightweightData._id)) {
+        localStorage.setItem(
+          LATEST_INVOICE_ID_KEY,
+          lightweightData.id || lightweightData._id
+        );
+      }
 
       sessionStorage.setItem(
         LATEST_INVOICE_KEY,
@@ -1019,6 +1110,8 @@ function normalizeLatestInvoiceData(data = {}, file = null, rawText = "") {
     rawText ? extractInvoiceDataFromText(rawText) : {};
 
   return {
+    id:
+      data.id || data._id || "",
     merchantName:
       data.merchantName || parsed.merchantName || "-",
     date:
@@ -1059,7 +1152,74 @@ function normalizeLatestInvoiceData(data = {}, file = null, rawText = "") {
       currentUploadPreviewDataUrl || data.previewDataUrl || ""
   };
 }
+function normalizeLatestInvoiceData(
+  data = {},
+  file = null,
+  rawText = ""
+) {
 
+  return {
+
+    id:
+      data._id || data.id || "",
+
+    merchantName:
+      data.merchantName || "-",
+
+    date:
+      data.date || "-",
+
+    invoiceId:
+      data.invoiceId || "-",
+
+    currency:
+      data.currency || "INR",
+
+    subtotal:
+      data.subtotal || "-",
+
+    amount:
+      data.amount || "-",
+
+    tax:
+      data.tax || "-",
+
+    category:
+      data.category || "General",
+
+    items:
+      Array.isArray(data.items)
+        ? data.items
+        : [],
+
+    rawText:
+      rawText ||
+      data.rawText ||
+      "",
+
+    fileName:
+      file
+        ? file.name
+        : data.fileName || "",
+
+    fileType:
+      file
+        ? file.type
+        : data.fileType || "",
+
+    fileUrl:
+      data.fileUrl
+        ? (
+            data.fileUrl.startsWith("http")
+              ? data.fileUrl
+              : `http://localhost:5000${data.fileUrl}`
+          )
+        : "",
+
+    previewDataUrl:
+      currentUploadPreviewDataUrl || ""
+  };
+}
 function renderExtractionPage() {
 
   const merchant =
@@ -1085,9 +1245,6 @@ function renderExtractionPage() {
   const image =
     getElement("extractionImage");
 
-  const emptyDocument =
-    getElement("extractionEmptyDocument");
-
   const pdf =
     getElement("extractionPdf");
 
@@ -1100,10 +1257,6 @@ function renderExtractionPage() {
 
     if (image) {
       image.hidden = true;
-    }
-
-    if (emptyDocument) {
-      emptyDocument.hidden = false;
     }
 
     if (pdf) {
@@ -1147,10 +1300,6 @@ function renderExtractionPage() {
   if (status) {
     status.textContent = "Verified";
     status.className = "status-pill success";
-  }
-
-  if (emptyDocument) {
-    emptyDocument.hidden = true;
   }
 
   if (data.fileType === "application/pdf") {
@@ -1197,6 +1346,14 @@ function renderExtractionPage() {
   } else if (itemsBody) {
     itemsBody.innerHTML = "";
   }
+
+  const rawText =
+    getElement("extractionRawText");
+
+  if (rawText) {
+    rawText.textContent =
+      data.rawText || "No OCR text loaded.";
+  }
 }
 
 async function fetchLatestInvoiceForExtraction() {
@@ -1214,10 +1371,17 @@ async function fetchLatestInvoiceForExtraction() {
   }
 
   try {
+    const latestInvoiceId =
+      localStorage.getItem(LATEST_INVOICE_ID_KEY);
+
+    const endpoint =
+      latestInvoiceId
+        ? `http://localhost:5000/api/invoice/${latestInvoiceId}`
+        : "http://localhost:5000/api/invoice/latest";
 
     const response =
       await fetch(
-        "http://localhost:5000/api/invoice",
+        endpoint,
         {
           headers: {
             Authorization:
@@ -1229,16 +1393,21 @@ async function fetchLatestInvoiceForExtraction() {
     const data =
       await readResponseJson(response);
 
-    if (!response.ok || !Array.isArray(data) || !data.length) {
+    if (!response.ok) {
+      if (latestInvoiceId) {
+        localStorage.removeItem(LATEST_INVOICE_ID_KEY);
+        await fetchLatestInvoiceForExtraction();
+        return;
+      }
       renderExtractionPage();
       return;
     }
 
     saveLatestInvoiceExtraction(
       normalizeLatestInvoiceData(
-        data[0],
+        data,
         null,
-        data[0].rawText || ""
+        data.rawText || ""
       )
     );
 
@@ -1248,6 +1417,69 @@ async function fetchLatestInvoiceForExtraction() {
 
     console.log(error);
     renderExtractionPage();
+  }
+}
+
+async function fetchLatestInvoiceForUpload() {
+
+  if (!getElement("invoiceDetails")) {
+    return;
+  }
+
+  const token =
+    getAuthToken();
+
+  if (!token) {
+    return;
+  }
+
+  try {
+    const latestInvoiceId =
+      localStorage.getItem(LATEST_INVOICE_ID_KEY);
+
+    const endpoint =
+      latestInvoiceId
+        ? `http://localhost:5000/api/invoice/${latestInvoiceId}`
+        : "http://localhost:5000/api/invoice/latest";
+
+    const response =
+      await fetch(
+        endpoint,
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
+      );
+
+    const data =
+      await readResponseJson(response);
+
+    if (!response.ok) {
+      if (latestInvoiceId) {
+        localStorage.removeItem(LATEST_INVOICE_ID_KEY);
+        await fetchLatestInvoiceForUpload();
+        return;
+      }
+      return;
+    }
+
+    const latestInvoice =
+      normalizeLatestInvoiceData(
+        data,
+        null,
+        data.rawText || ""
+      );
+
+    saveLatestInvoiceExtraction(latestInvoice);
+    renderInvoiceDetails(latestInvoice);
+    renderRawText(data.rawText || "No text extracted.");
+    renderStoredUploadPreview(data);
+    setUploadCardCollapsed(true);
+
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -1663,6 +1895,13 @@ async function uploadInvoice() {
 
       saveLatestInvoiceExtraction(latestInvoice);
 
+      if (data._id || data.id) {
+        localStorage.setItem(
+          LATEST_INVOICE_ID_KEY,
+          data._id || data.id
+        );
+      }
+
       if (details && !hasClientText) {
 
         renderInvoiceDetails(latestInvoice);
@@ -1674,6 +1913,9 @@ async function uploadInvoice() {
           data.rawText ||
           "No text extracted";
       }
+
+      window.location.href =
+        "extraction.html";
 
     } else {
 
@@ -1746,6 +1988,9 @@ async function fetchDashboardData() {
     const topCategory =
       getElement("topCategory");
 
+    const invoiceCount =
+      getElement("invoiceCount");
+
     if (totalSpent) {
 
       totalSpent.innerText =
@@ -1779,9 +2024,12 @@ async function fetchDashboardData() {
         top;
     }
 
-    renderDashboardCharts(data);
+    if (invoiceCount) {
+      invoiceCount.innerText =
+        data.totalInvoices || 0;
+    }
 
-    renderDashboardInvoices(data.invoices || []);
+    renderDashboardCharts(data);
 
   } catch (error) {
 
@@ -1789,31 +2037,108 @@ async function fetchDashboardData() {
   }
 }
 
-function renderDashboardInvoices(invoices) {
+async function fetchInsightsData() {
 
-  const body =
-    getElement("dashboardInvoices");
-
-  if (!body) {
+  if (!getElement("insightsGrid")) {
     return;
   }
 
-  if (!invoices.length) {
-    body.innerHTML =
-      `<tr><td colspan="6">No extracted invoices yet</td></tr>`;
+  const token =
+    getAuthToken();
+
+  if (!token) {
     return;
   }
 
-  body.innerHTML =
-    invoices.slice(0, 8).map((invoice) => `
-      <tr>
-        <td>${escapeHtml(invoice.merchantName || "-")}</td>
-        <td>${escapeHtml(displayDate(invoice.date))}</td>
-        <td>${escapeHtml(invoice.invoiceId || "-")}</td>
-        <td>${escapeHtml(invoice.category || "-")}</td>
-        <td>${escapeHtml(money(invoice.tax))}</td>
-        <td>${escapeHtml(money(invoice.amount))}</td>
-      </tr>
+  try {
+
+    const response =
+      await fetch(
+        "http://localhost:5000/api/dashboard",
+        {
+          headers: {
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
+      );
+
+    const data =
+      await readResponseJson(response);
+
+    if (!response.ok) {
+      return;
+    }
+
+    renderInsightsData(data);
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function renderInsightsData(data) {
+
+  const setText = (id, value) => {
+
+    const element =
+      getElement(id);
+
+    if (element) {
+      element.textContent = value;
+    }
+  };
+
+  setText("insightTotalExpenses", money(data.totalExpense));
+  setText("insightTotalGst", money(data.totalTax));
+  setText("insightTopCategory", data.topCategory || "None");
+  setText("insightTopMerchant", data.topMerchant || "None");
+  setText(
+    "insightInvoiceCount",
+    `${data.totalInvoices || 0} invoice${data.totalInvoices === 1 ? "" : "s"} saved`
+  );
+
+  const grid =
+    getElement("insightsGrid");
+
+  if (!grid) {
+    return;
+  }
+
+  const aggregateInsights =
+    data.insights || [];
+
+  const invoiceInsights =
+    (data.invoices || [])
+      .flatMap((invoice) =>
+        (invoice.insights || []).map((body) => ({
+          title:
+            invoice.merchantName || "Invoice Insight",
+          body
+        }))
+      );
+
+  const insights =
+    [...aggregateInsights, ...invoiceInsights].slice(0, 8);
+
+  if (!insights.length) {
+    grid.innerHTML = `
+      <article class="insight-card">
+        <div class="icon">01</div>
+        <h3>No Insights Yet</h3>
+        <p>Upload invoices to generate spending, GST, category, and merchant insights.</p>
+      </article>
+    `;
+    return;
+  }
+
+  grid.innerHTML =
+    insights.map((insight, index) => `
+      <article class="insight-card">
+        <div class="icon">${String(index + 1).padStart(2, "0")}</div>
+        <h3>${escapeHtml(insight.title)}</h3>
+        <p>${escapeHtml(insight.body)}</p>
+      </article>
     `).join("");
 }
 
@@ -1980,9 +2305,15 @@ document.addEventListener(
   "DOMContentLoaded",
   () => {
 
+    if (!requireAuthForProtectedPage()) {
+      return;
+    }
+
     setupUploadPreview();
 
     setupUploadForm();
+
+    fetchLatestInvoiceForUpload();
 
     updateAuthNavigation();
 
@@ -1999,5 +2330,7 @@ document.addEventListener(
     ) {
       fetchDashboardData();
     }
+
+    fetchInsightsData();
   }
 );

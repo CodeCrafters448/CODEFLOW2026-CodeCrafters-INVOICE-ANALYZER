@@ -37,14 +37,6 @@
         alt="Uploaded invoice"
         hidden
       >
-      <div id="extractionEmptyDocument" class="empty-document extraction-empty-document">
-        <span class="empty-doc-line wide"></span>
-        <span class="empty-doc-line"></span>
-        <span class="empty-doc-line short"></span>
-        <span class="empty-doc-row"></span>
-        <span class="empty-doc-row"></span>
-        <span class="empty-doc-total"></span>
-      </div>
       <div
         id="extractionPdf"
         class="pdf-preview document-pdf-preview"
@@ -52,6 +44,9 @@
       >
         <strong>PDF invoice uploaded</strong>
         <span id="extractionPdfName"></span>
+      </div>
+      <div class="extraction-actions">
+        <a class="button primary" href="dashboard.html">Dashboard</a>
       </div>
     </section>
 
@@ -88,6 +83,12 @@
       </div>
 
       <span id="extractionCategory" class="category-badge general">-</span>
+
+      <h2>Extracted Raw Text</h2>
+      <pre
+        id="extractionRawText"
+        class="raw-text"
+      >No OCR text loaded.</pre>
     </section>
   </main>
 </body>

@@ -2,7 +2,9 @@ const express = require("express");
 
 const {
     uploadInvoice,
-    getInvoices
+    getInvoices,
+    getLatestInvoice,
+    getInvoiceById
 } = require("../controllers/invoiceController.js");
 
 const {
@@ -20,6 +22,18 @@ router.post(
     protect,
     upload.single("invoice"),
     uploadInvoice
+);
+
+router.get(
+    "/latest",
+    protect,
+    getLatestInvoice
+);
+
+router.get(
+    "/:id",
+    protect,
+    getInvoiceById
 );
 
 router.get(

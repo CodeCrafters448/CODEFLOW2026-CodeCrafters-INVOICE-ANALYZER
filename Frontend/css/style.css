@@ -456,9 +456,12 @@ button.primary:hover {
   gap: 24px;
 }
 
-.recent-grid,
-.kpi-section {
+.recent-grid {
   grid-template-columns: repeat(3, 1fr);
+}
+
+.kpi-section {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .kpi-container,
@@ -806,6 +809,11 @@ button.primary:hover {
   background: rgba(15, 23, 42, 0.72);
   margin-top: 12px;
   padding: 14px;
+}
+
+.extraction-actions {
+  display: flex;
+  margin-top: 22px;
 }
 
 .info-block {

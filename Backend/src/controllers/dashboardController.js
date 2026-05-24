@@ -1,5 +1,8 @@
 const Invoice = require("../models/Invoice");
 
+const getInvoiceTime = (invoice) =>
+    new Date(invoice.createdAt || invoice.date || Date.now()).getTime();
+
 const getDashboardData = async (req, res) => {
 
     try {
@@ -43,17 +46,102 @@ const getDashboardData = async (req, res) => {
                 + amount;
         });
 
+        const topCategory =
+            Object.entries(categoryMap)
+                .sort((a, b) => b[1] - a[1])[0] || ["None", 0];
+
+        const topMerchant =
+            Object.entries(merchantMap)
+                .sort((a, b) => b[1] - a[1])[0] || ["None", 0];
+
+        const orderedByAmount =
+            [...invoices].sort((a, b) =>
+                (Number(b.amount) || 0) - (Number(a.amount) || 0)
+            );
+
+        const highestInvoice =
+            orderedByAmount[0];
+
+        const sortedByTime =
+            [...invoices].sort((a, b) =>
+                getInvoiceTime(a) - getInvoiceTime(b)
+            );
+
+        const latestInvoice =
+            sortedByTime[sortedByTime.length - 1];
+
+        const previousInvoice =
+            sortedByTime[sortedByTime.length - 2];
+
+        const latestAmount =
+            latestInvoice ? Number(latestInvoice.amount) || 0 : 0;
+
+        const previousAmount =
+            previousInvoice ? Number(previousInvoice.amount) || 0 : 0;
+
+        const trendInsight =
+            latestInvoice && previousInvoice
+                ? latestAmount > previousAmount
+                    ? `Latest invoice spend increased by Rs. ${latestAmount - previousAmount} compared with the previous invoice.`
+                    : latestAmount < previousAmount
+                        ? `Latest invoice spend decreased by Rs. ${previousAmount - latestAmount} compared with the previous invoice.`
+                        : "Latest invoice spend is equal to the previous invoice."
+                : "Upload more invoices to calculate expense trends.";
+
+        const insights = [
+            {
+                title: "Expense Summary",
+                body: invoices.length
+                    ? `You have ${invoices.length} saved invoice${invoices.length === 1 ? "" : "s"} totaling Rs. ${totalExpense}.`
+                    : "No invoice expenses have been recorded yet."
+            },
+            {
+                title: "Tax Summary",
+                body: totalTax > 0
+                    ? `Rs. ${totalTax} GST has been extracted from uploaded invoices.`
+                    : "No GST has been extracted yet."
+            },
+            {
+                title: "Top Category",
+                body: topCategory[0] !== "None"
+                    ? `${topCategory[0]} is your highest spend category at Rs. ${topCategory[1]}.`
+                    : "Upload invoices to identify your top spend category."
+            },
+            {
+                title: "Top Merchant",
+                body: topMerchant[0] !== "None"
+                    ? `${topMerchant[0]} is your top merchant with Rs. ${topMerchant[1]} recorded.`
+                    : "Upload invoices to identify your top merchant."
+            },
+            {
+                title: "Unusual Spending",
+                body: highestInvoice
+                    ? `${highestInvoice.merchantName || "An invoice"} is your highest invoice at Rs. ${Number(highestInvoice.amount) || 0}.`
+                    : "Upload invoices to detect unusually high spending."
+            },
+            {
+                title: "Expense Trend",
+                body: trendInsight
+            }
+        ];
+
         res.json({
 
             totalExpense,
 
             totalTax,
 
+            topCategory: topCategory[0],
+
+            topMerchant: topMerchant[0],
+
             categoryBreakdown: categoryMap,
 
             merchantBreakdown: merchantMap,
 
             totalInvoices: invoices.length,
+
+            insights,
 
             invoices:
                 invoices.map((invoice) => ({
@@ -68,6 +156,7 @@ const getDashboardData = async (req, res) => {
                     category: invoice.category,
                     items: invoice.items,
                     rawText: invoice.rawText,
+                    insights: invoice.insights,
                     fileName: invoice.fileName,
                     fileType: invoice.fileType,
                     fileUrl: invoice.fileUrl,

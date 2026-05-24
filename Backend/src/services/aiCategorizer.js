@@ -1,5 +1,18 @@
 const categorizeExpense = (merchantName = "", items = []) => {
-    const text = [merchantName, ...items].join(" ").toLowerCase();
+    const itemText =
+        items.map((item) => {
+            if (typeof item === "string") {
+                return item;
+            }
+
+            return [
+                item.item,
+                item.name,
+                item.category
+            ].filter(Boolean).join(" ");
+        });
+
+    const text = [merchantName, ...itemText].join(" ").toLowerCase();
 
     if (/(restaurant|cafe|food|meal|grocery|market)/.test(text)) {
         return "Food";
