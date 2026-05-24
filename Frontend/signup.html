@@ -17,6 +17,8 @@
     href="css/style.css"
   >
 
+  <script src="js/script.js" defer></script>
+
 </head>
 
 
@@ -265,9 +267,12 @@
           // SAVE JWT TOKEN
           if (data.token) {
 
-            localStorage.setItem(
-              "token",
-              data.token
+            saveUserSession(
+              data.token,
+              data.user || {
+                name,
+                email
+              }
             );
 
             alert("Account Created Successfully");
@@ -275,7 +280,7 @@
 
             // REDIRECT
             window.location.href =
-              "dashboard.html";
+              "index.html";
 
           } else {
 

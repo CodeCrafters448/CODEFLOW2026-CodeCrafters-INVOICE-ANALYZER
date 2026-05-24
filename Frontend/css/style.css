@@ -94,6 +94,61 @@ img {
   color: #fff;
 }
 
+.profile-nav {
+  position: relative;
+}
+
+.profile-trigger {
+  background: transparent;
+  color: #cbd5e1;
+  min-height: auto;
+  padding: 0;
+}
+
+.profile-trigger:hover,
+.profile-nav.is-open .profile-trigger {
+  color: #fff;
+}
+
+.profile-menu {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  display: none;
+  min-width: 240px;
+  padding: 18px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 18px);
+  z-index: 20;
+}
+
+.profile-nav:hover .profile-menu,
+.profile-nav.is-open .profile-menu {
+  display: grid;
+  gap: 8px;
+}
+
+.profile-menu strong {
+  color: var(--text);
+}
+
+.profile-menu span {
+  color: var(--muted);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.profile-menu button {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fecaca;
+  margin-top: 10px;
+  min-height: 40px;
+  width: 100%;
+}
+
 main {
   margin: 0 auto;
   max-width: 1180px;

@@ -300,6 +300,85 @@ function money(value) {
   return `Rs. ${value}`;
 }
 
+function getStoredUser() {
+  try {
+    return JSON.parse(localStorage.getItem("user"));
+  } catch (error) {
+    return null;
+  }
+}
+
+function saveUserSession(token, user) {
+  const email = user?.email || "";
+  const fallbackName = email ? email.split("@")[0] : "Invoxen User";
+
+  if (token) {
+    localStorage.setItem("token", token);
+  }
+
+  localStorage.setItem(
+    "user",
+    JSON.stringify({
+      name: user?.name || fallbackName,
+      email: email || "No email available"
+    })
+  );
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function setupProfileNav() {
+  const navList = document.querySelector(".topbar ul");
+  const token = localStorage.getItem("token");
+  const user = getStoredUser();
+
+  if (!navList || !token || !user) {
+    return;
+  }
+
+  const loginItem = Array.from(navList.querySelectorAll("li")).find((item) => {
+    const link = item.querySelector("a");
+    return link && link.getAttribute("href") === "login.html";
+  });
+
+  if (!loginItem) {
+    return;
+  }
+
+  loginItem.className = "profile-nav";
+  loginItem.innerHTML = `
+    <button class="profile-trigger" type="button" aria-expanded="false">
+      Profile
+    </button>
+    <div class="profile-menu" aria-label="User profile">
+      <strong>${escapeHtml(user.name)}</strong>
+      <span>${escapeHtml(user.email)}</span>
+      <button type="button" data-logout>Logout</button>
+    </div>
+  `;
+
+  const trigger = loginItem.querySelector(".profile-trigger");
+  const logoutButton = loginItem.querySelector("[data-logout]");
+
+  trigger.addEventListener("click", () => {
+    const isOpen = loginItem.classList.toggle("is-open");
+    trigger.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  logoutButton.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  });
+}
+
 
 // ======================
 // FETCH DASHBOARD DATA
@@ -538,7 +617,14 @@ async function uploadInvoice() {
 document.addEventListener(
   "DOMContentLoaded",
   () => {
+    setupProfileNav();
 
-    fetchDashboardData();
+    if (
+      getElement("totalSpent") &&
+      getElement("totalGST") &&
+      getElement("topCategory")
+    ) {
+      fetchDashboardData();
+    }
   }
 );

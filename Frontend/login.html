@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Invoxen</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
 </head>
 
 <body>
@@ -181,9 +182,12 @@
           // SAVE JWT TOKEN
           if (data.token) {
 
-            localStorage.setItem(
-              "token",
-              data.token
+            saveUserSession(
+              data.token,
+              data.user || {
+                name: data.name,
+                email
+              }
             );
 
             alert("Login Successful");
@@ -191,7 +195,7 @@
 
             // REDIRECT
             window.location.href =
-              "dashboard.html";
+              "index.html";
 
           } else {
 
